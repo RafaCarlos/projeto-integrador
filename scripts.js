@@ -359,13 +359,15 @@ const dados = [
 
 console.log(dados);
 
-new Chart("chartBcb", {
+let grafico = new Chart("chartBcb", {
   type: "line",
   data: {
     datasets: [
       {
         data: dados, // temos que lancar a funcao filtro aqui para fazermos a renderizaccao do grafico a partir dos valores
         label: "Inflacao",
+        tension: 0.5,
+        borderColor: 'rgb(75, 192, 192)' ,
       },
     ],
   },
@@ -384,9 +386,11 @@ function filtro(event) {
     ;
   });
   console.log(ano)
+  
   return ano
 }
 
-/* function render(){
-  return filtro(e)
-} */
+
+ /* function render(filtro(event)){
+  return grafico(filtro())
+}  */
