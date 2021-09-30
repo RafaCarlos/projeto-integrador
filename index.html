@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Integrador</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <section class="chart">
+        <div class="container">
+
+            <h1>Projeto Integrador</h1>
+
+            <div>
+                <select name="filtro" id="filtro" onchange="filtro(event)">
+                    <option value="">Selecione o ano</option>
+                    <option value="1992">1992</option>
+                    <option value="1993">1993</option>
+                    <option value="1994">1994</option>
+                    <option value="1995">1995</option>
+                </select>
+            </div>
+
+            <canvas id="chartBcb"></canvas>
+
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="scripts.js"></script>
+
+</body>
+</html>
