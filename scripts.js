@@ -357,36 +357,44 @@ const dados = [
   { data: "01/08/2021", valor: "0.67" },
 ];
 
-console.log(dados);
+let graph;
 
-new Chart("chartBcb", {
-  type: "line",
-  data: {
-    datasets: [
-      {
-        data: dados, // temos que lancar a funcao filtro aqui para fazermos a renderizaccao do grafico a partir dos valores
-        label: "Inflacao",
-      },
-    ],
-  },
-  options: {
-    parsing: {
-      xAxisKey: "data",
-      yAxisKey: "valor",
+loadChart(dados);
+
+function loadChart(data) {
+  graph = new Chart("chartBcb", {
+    type: "line",
+    data: {
+      datasets: [
+        {
+          data: data,
+          label: "Inflação",
+        },
+      ],
     },
-  },
-});
+    options: {
+      parsing: {
+        xAxisKey: "data",
+        yAxisKey: "valor",
+      },
+    },
+  });
+}
 
 function filtro(event) {
-  var ano = dados.filter(function (e) {
+  let ano = dados.filter(function (e) {
     
     return   (e.data.split("/")[2] >= (+event.target.value)  ) && ((e.data.split("/")[2] < (+event.target.value+1)))
     ;
   });
-  console.log(ano)
-  return ano
-}
 
-/* function render(){
-  return filtro(e)
-} */
+  const canvas = document.querySelector('#chartBcb');
+  canvas.parentNode.removeChild(canvas);
+
+  const target = document.querySelector('.grafico');
+  let newCanvas = document.createElement('canvas');
+  newCanvas.setAttribute('id', 'chartBcb');
+  target.appendChild(newCanvas);
+
+  loadChart(ano);
+}
