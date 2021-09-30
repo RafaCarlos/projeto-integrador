@@ -369,6 +369,7 @@ function loadChart(data) {
         {
           data: data,
           label: "Inflação",
+          backgroundColor: ['#1e8bc7']
         },
       ],
     },
