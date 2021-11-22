@@ -1,24 +1,24 @@
 let dados;
 let graph;
 
-fetch('https://api.bcb.gov.br/dados/serie/bcdata.sgs.4448/dados?formato=json').then(function (response) {
+fetch('https://api.bcb.gov.br/dados/serie/bcdata.sgs.4448/dados?formato=json').then((response) => {
 	return response.json();
-}).then(function (data) {
+}).then((data) => {
 	dados = data;
   loadOptions(dados);
   loadChart(dados);
-}).catch(function (err) {
-	console.warn('Something went wrong.', err);
+}).catch((err) => {
+	console.warn('Houve um erro no carregamento.', err);
 });
 
 function loadOptions(dados) {
   let value = dados.filter(e => e.data).map(e => e.data.split("/")[2]);
-  var unique = value.filter((v, i, a) => a.indexOf(v) === i);
+  const unique = value.filter((v, i, a) => a.indexOf(v) === i);
 
-  var selectBox = document.getElementById('filtro');
+  const selectBox = document.getElementById('filtro');
 
-  for(var i = 0, l = unique.length; i < l; i++){
-    var option = unique[i];
+  for(let i = 0, l = unique.length; i < l; i++){
+    const option = unique[i];
     selectBox.options.add( new Option(option, option) );
   }
 }
@@ -44,18 +44,28 @@ function loadChart(data) {
   });
 }
 
-function filtro(event) {
-  let ano = dados.filter(function (e) {
-    return (e.data.split("/")[2] >= (+event.target.value)  ) && ((e.data.split("/")[2] < (+event.target.value+1)));
-  });
+function filterChart(event) {
+  if (event.target.value == 0) {
+    resetChart();
 
-  const canvas = document.querySelector('#chartBcb');
-  canvas.parentNode.removeChild(canvas);
+    loadChart(dados);
+  } else {
+    let ano = dados.filter((e) => {
+      return (e.data.split("/")[2] >= (+event.target.value)  ) && ((e.data.split("/")[2] < (+event.target.value+1)));
+    });
+  
+    resetChart();
+  
+    loadChart(ano);
+  }
 
-  const target = document.querySelector('.grafico');
-  let newCanvas = document.createElement('canvas');
-  newCanvas.setAttribute('id', 'chartBcb');
-  target.appendChild(newCanvas);
-
-  loadChart(ano);
+  function resetChart() {
+    const canvas = document.querySelector('#chartBcb');
+    canvas.parentNode.removeChild(canvas);
+  
+    const target = document.querySelector('.grafico');
+    let newCanvas = document.createElement('canvas');
+    newCanvas.setAttribute('id', 'chartBcb');
+    target.appendChild(newCanvas);
+  }
 }
