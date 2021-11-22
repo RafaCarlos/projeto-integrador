@@ -58,14 +58,14 @@ function filterChart(event) {
   
     loadChart(ano);
   }
+}
 
-  function resetChart() {
-    const canvas = document.querySelector('#chartBcb');
-    canvas.parentNode.removeChild(canvas);
-  
-    const target = document.querySelector('.grafico');
-    let newCanvas = document.createElement('canvas');
-    newCanvas.setAttribute('id', 'chartBcb');
-    target.appendChild(newCanvas);
-  }
+function resetChart() {
+  const canvas = document.querySelector('#chartBcb');
+  canvas.parentNode.removeChild(canvas);
+
+  const target = document.querySelector('.grafico');
+  let newCanvas = document.createElement('canvas');
+  newCanvas.setAttribute('id', 'chartBcb');
+  target.appendChild(newCanvas);
 }
